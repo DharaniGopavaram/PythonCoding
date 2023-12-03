@@ -60,7 +60,7 @@ print(f'dictionary created from list of tuples: {d}')
 print(f'The length of the dictionary is: {len(d)}')
 
 print(f'The value of the Key 100 using get method is: {d.get(100)}')
-print(f'The value of the Key 500 using get method is: {d.get(500)}')  # this returns None
+print(f'The value of the Key 500 using get method is: {d.get(500)}')  # this returns None since key doesn't exist
 print(f'The value of the Key 500 using get method is: {d.get(500, "Not found")}')  # we can pass default value as well
 
 print(f'Remove and return the value associated with the key: {d.pop(100)}')
@@ -92,4 +92,42 @@ d.setdefault(400, 'Kavya')  # If the key doesn't exist adds the key to the dicti
 d.setdefault(100, 'Sunny')  # since key 100 is already present it doesn't override the old value
 print(f'The dictionary d = {d}')
 
+d1 = {'a': 'apple', 'b': 'banana'}
+d.update(d1)  # To add multiple values to dictionary
+print(f'The data in dictionary after update method: {d}')
 
+d = {'Ravi': 100, 'Shiva': 98, 'Ram': 90}
+dict_values_sum = sum(d.values())   # sum is an inbuilt function
+print(f'The sum of values in dictionary d is: {dict_values_sum}')
+# program to print the number of occurrences of every character present in the string
+
+s = 'mississippi'
+d = {}
+for x in s:
+    d[x] = d.get(x,0) + 1
+
+for k,v in d.items():
+    print(f'{k} is available {v} times')
+
+for k,v in sorted(d.items()):  # sort based on keys
+    print(f'{k} is available {v} times')
+
+# program to print the number of occurrences of every vowel present in the string
+
+s = 'The quick brown fox jumps over lazy dog'
+vowels_present = set(s) & set('aeiou')
+d = {}
+
+for x in vowels_present:
+    d[x] = s.count(x)
+
+for k,v in d.items():
+    print(f'{k} came {v} times')
+
+# Dictionary comprehension
+
+squares = {x: x * x for x in range(1,11,2)}
+print(squares)
+
+doubles = {x: 2 * x for x in range(1,11,2)}
+print(doubles)
