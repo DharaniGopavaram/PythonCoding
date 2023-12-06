@@ -141,3 +141,105 @@ def display(**kwargs):
 
 display(name='Dharani', marks=20, age=30, height=6.1)  # we can call the function with any keyword arguments we want
 display(name='Ravi', wife1='wife1', wife2='wife2')
+
+'''
+Modules :- A group of functions and variables saved to a file is called module
+Package :- A group of modules saved inside a folder is called Package
+Library :- A group of packages is called library
+
+Types of variables :-
+
+1. Global variables :- A variable defined outside function is called global variable
+        Global variable is accessible to all the functions in the module
+2. Local variables :- Variables defined inside function is called local variable
+        We can not access local variable defined in one function outside of the function
+'''
+
+global_var = 10
+
+
+def f1():
+    global global_var  # If we specify like this from now on it will be a global variable
+    # We are not required to have a global variable defined while using global keyword
+    global_var = 777  # changing the value of the global variable
+    print(f'The global variable value is: {global_var}')  # by, default it always takes local variable
+
+
+def f2():
+    global_var = 100  # this is local variable
+    print(f'The local variable value global_var is: {global_var}')
+    print(f"The global variable value global_var is: {globals()['global_var']}")
+    # In the above line we are accessing global variable using globals() dictionary
+
+
+f2()
+f1()
+f2()
+
+
+# Recursive functions -- A function calling itself is called recursive function
+# The length of the code and the readability of the code will be improved if we use recursion
+
+def factorial(n):
+    if n == 0:
+        result = 1
+    else:
+        result = n * factorial(n - 1)
+    return result
+
+
+print(f'Factorial of 5 is: {factorial(5)}')
+print(f'Factorial of 3 is: {factorial(3)}')
+
+'''
+Anonymous functions:-
+---------------------
+
+Some times we can define functions without name such type of nameless functions are called Anonymous functions
+Syntax :- lambda input-argument-list:expression
+lambda functions are useful when we want to pass function as argument to a function
+Some example of functions which accept functions are arguments are filter(), map(), reduce() etc.,
+
+filter() syntax -- filter(lambda function, sequence)
+'''
+
+s = lambda n:n*n
+print(f'Calling the anonymous function to get square: {s(4)}')
+print(f'Calling the anonymous function to get square: {s(40)}')
+
+s = lambda num1, num2: num1 + num2
+print(f'Calling the anonymous function to get sum: {s(10, 20)}')
+print(f'Calling the anonymous function to get sum: {s(100, 200)}')
+
+s = lambda a, b: a if a > b else b
+print(f'Calling the anonymous function to know the bigger value: {s(10, 20)}')
+print(f'Calling the anonymous function to know the bigger value: {s(9, -3)}')
+
+
+def iseven(n):
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+
+
+# filter function using normal function
+sample_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(f'Filtering out the even values in sequence: {list(filter(iseven,sample_list))}')
+
+# filter function using anonymous function
+final_output_list1 = list(filter(lambda num:num % 2 == 0,sample_list))
+print(f'Filtering out the even values in sequence: {final_output_list1}')
+
+final_output_list2 = list(map(lambda n1: n1 * 2,sample_list))
+print(f'Doubling the values in sequence using map function: {final_output_list2}')
+
+sample_words_list = ['dharani', 'durga', 'kavya', 'bharath']
+final_output_list3 = list(map(lambda n1: (n1,len(n1)),sample_words_list))
+print(f'Doubling the values in sequence using map function: {final_output_list3}')
+
+# we can apply map function on multiple sequences
+# map function will automatically terminate when all the values in any sequence are completed
+another_set = {10, 20, 30, 40, 50}
+final_output_list4 = list(map(lambda a1,a2: a1 * a2,sample_list,another_set))
+print(f'map function on multiple sequences: {final_output_list4} ')
