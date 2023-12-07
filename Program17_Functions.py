@@ -2,7 +2,10 @@
 The below program explains about functions
 Function is a group of statements which can be re-used
 It is the best reusable component of a program
+Even functions are objects are in Python
 """
+
+from functools import reduce
 
 
 def wish():  # we need to use def keyword to define a function
@@ -40,11 +43,11 @@ print(f'add_numbers(100, 300) = {add_numbers(100, 300)}')
 
 
 def num_factorial(n):
-    result = 1
+    factorial_result = 1
     while n >= 2:
-        result *= n
+        factorial_result *= n
         n -= 1
-    return result
+    return factorial_result
 
 
 for i in range(1,11):
@@ -182,14 +185,14 @@ f2()
 
 def factorial(n):
     if n == 0:
-        result = 1
+        fact_result = 1
     else:
-        result = n * factorial(n - 1)
-    return result
+        fact_result = n * factorial(n - 1)
+    return fact_result
 
 
-print(f'Factorial of 5 is: {factorial(5)}')
 print(f'Factorial of 3 is: {factorial(3)}')
+print(f'Factorial of 5 is: {factorial(5)}')
 
 '''
 Anonymous functions:-
@@ -236,10 +239,179 @@ print(f'Doubling the values in sequence using map function: {final_output_list2}
 
 sample_words_list = ['dharani', 'durga', 'kavya', 'bharath']
 final_output_list3 = list(map(lambda n1: (n1,len(n1)),sample_words_list))
-print(f'Doubling the values in sequence using map function: {final_output_list3}')
+print(f'Returning a tuple from the map function: {final_output_list3}')
 
 # we can apply map function on multiple sequences
 # map function will automatically terminate when all the values in any sequence are completed
 another_set = {10, 20, 30, 40, 50}
 final_output_list4 = list(map(lambda a1,a2: a1 * a2,sample_list,another_set))
 print(f'map function on multiple sequences: {final_output_list4} ')
+
+
+# reduce function
+result = reduce(lambda num1,num2:num1 + num2, sample_list)
+print(f'The result of the reduce function using lambda is: {result}')
+
+
+def add_num(num_1, num_2):
+    return num_1 + num_2
+
+
+final_result = reduce(add_num,sample_list)  # calling reduce function using normal function
+print(f'The result of the reduce function using normal function is: {final_result}')
+
+# Function aliasing
+
+
+def original_func(name):
+    print("Good Morning", name)
+
+
+duplicate_func = original_func
+
+print(f'The address of the variable duplicate_func is {id(duplicate_func)}')
+print(f'The address of the variable original_func is {id(original_func)}')
+print(f'Calling the duplicate_func:')
+duplicate_func('Dharani')
+
+# If the object has any variable pointing to it and even if we delete the variable the object will still be there
+del original_func  # deleting the original function
+duplicate_func('Dharani')
+
+# Nested functions
+# Function inside function is known as nested function
+
+
+def outer():
+    print('outer function execution started')
+
+    def inner(num1, num2):
+        print('inner function execution started')
+        print(f'The sum is: {num1 + num2}')
+        print(f'The average is: {(num1 + num2)/2}')
+
+    inner(10,20)
+    inner(100,200)
+    inner(30,40)
+
+    print('outer function execution completed')
+
+
+outer()  # calling the outer function
+
+
+# A function can return another function as well
+
+def outer_func():
+    print("outer function execution started")
+
+    def inner_func():
+        print("inner function executed")
+
+    print("outer function returning inner function")
+    return inner_func
+
+
+return_func = outer_func()  # calling the outer_func function
+return_func()  # this will call the inner_func function
+
+# Function Decorators -- used to extend the functionality of existing function
+# without changing the function logic if u want to play with function parameters then we can use decorators.
+# Decorators provide a clean and reusable way to extend the functionality of
+#   functions without modifying their code directly.
+# Let's say for the below greeting_function if Sunny as received as parameter we should print different output
+
+
+# Implicitly calling decorator of greeting_function
+
+def greeting_decor_func(input_function):
+
+    def inner_decor_func(input_function_param):
+        if input_function_param == 'Sunny':
+            print('Hello Sunny bad morning')
+        else:
+            input_function(input_function_param)
+
+    return inner_decor_func
+
+
+@greeting_decor_func
+def greeting_function(name):
+    print(f'Hello {name} Good morning')
+
+
+greeting_function("Dharani")
+greeting_function("Bunny")
+greeting_function("Sunny")
+
+# Explicitly calling the decorator function
+
+
+def sum_of_two_numbers_decor(input_function):
+    def inner_decor_func(x1, x2):
+        if x1 > 100:
+            return -100
+        else:
+            input_function(x1, x2)
+
+    return inner_decor_func
+
+
+def sum_of_two_numbers(a, b):
+    return a + b
+
+
+decor_func = sum_of_two_numbers_decor(sum_of_two_numbers)
+print(f'Normal function without decorator: {sum_of_two_numbers(200, 300)}')
+print(f'With decorator: {decor_func(200, 300)}')
+
+
+# one more example of using decorators
+
+
+def smart_division(input_func):
+
+    def inner(a, b):
+        if b == 0:
+            print('Hello Stupid how can u divide with zero')
+            return
+        else:
+            return input_func(a, b)
+    return inner
+
+
+@smart_division
+def division(a, b):
+    return a / b
+
+
+print(f'Division result: {division(10, 20)}')
+division(10, 0)
+
+# We can have multiple decorators for a single function this is called decorator chaining
+
+
+def sample_function_decor_1(input_func):
+    def inner_decor_1(name):
+        print(f'sample_function_decor_1 function started')
+        input_func(name)
+        print(f'sample_function_decor_1 function completed')
+    return inner_decor_1
+
+
+def sample_function_decor_2(input_func):
+    def inner_decor_2(name):
+        print(f'sample_function_decor_2 function started')
+        input_func(name)
+        print(f'sample_function_decor_2 function completed')
+    return inner_decor_2
+
+
+@sample_function_decor_2  # This will get executed at last
+@sample_function_decor_1  # This decorator will get executed first and the result is passed to output decorator
+def sample_function(name):
+    print(f'Hello {name} Good morning')
+
+
+sample_function('Dharani')
+# The execution of multiple decorators is like this: sample_function_decor_2(sample_function_decor_1(sample_function))
