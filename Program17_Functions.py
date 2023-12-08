@@ -407,6 +407,7 @@ def sample_function_decor_2(input_func):
     return inner_decor_2
 
 
+# when decorator chaining is applied the decorator closest to the function will get executed first
 @sample_function_decor_2  # This will get executed at last
 @sample_function_decor_1  # This decorator will get executed first and the result is passed to output decorator
 def sample_function(name):
