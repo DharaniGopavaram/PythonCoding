@@ -14,3 +14,5 @@ print(f'Using randint function in random module directly: {randint(10, 100)}')  
 print(f'Using randint function in random module directly: {choices([10, 20, 30])}')
 
 
+
+
