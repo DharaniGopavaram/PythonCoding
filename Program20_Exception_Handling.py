@@ -80,14 +80,125 @@ try:
     finally:  # In this scenario where exception is not handled as well finally block will get executed
         print('successfully completed the execution of code snippet')
 except TypeError:
-    print('Nested try catch')
+    print('Nested try except')
 
 # situation where finally block won't get executed is when the python interpreter shuts down
 
 try:
     print('try')
-    os._exit(0)  # this statement will shut down python interpreter hence finally block won't get executed
+    # os._exit(0)  # this statement will shut down python interpreter hence finally block won't get executed
 except ValueError:
     print('except')
 finally:
     print('finally')
+
+# Nested try except block
+
+try:
+    print('stmt 1')
+    print('stmt 2' + 10)
+    print('stmt 3')
+    try:
+        print('stmt 4')
+        print('stmt 5')
+        print('stmt 6')
+    except ZeroDivisionError:
+        print('stmt 7')
+    finally:
+        print('stmt 8')
+    print('stmt 9')
+except TypeError:
+    print('stmt 10')
+finally:
+    print('stmt 11')
+print('stmt 12')
+
+'''
+case 1: If there is no exception -- 1,2,3,4,5,6,8,9,11,12 will get executed with normal termination
+case 2: If exception raised at stmt 2 and corresponding except block matched 
+        then statements 1,10,11,12 with normal termination
+case 3: If exception raised at stmt 2 and corresponding except block not matched
+        then statements 1,11 with abnormal termination
+case 4: If exception raised at stmt 5 and corresponding inner except block matched 
+        then statements 1,2,3,4,7,8,9,11,12 with normal termination
+case 5: If exception raised at stmt 5 and corresponding inner except block not matched but outer except
+        block matched then statements 1,2,3,4,8,10,11,12 with normal termination
+case 6: If exception raised at stmt 5 and both inner and outer except blocks not matched then
+        statements 1,2,3,4,8,11 with abnormal termination
+case 7: If exception raised at statement 7 and corresponding outer except block matched then
+        statements 1,2,3,4,8,10,11,12 with normal termination
+case 8: If exception raised at statement 7 and corresponding except block not matched then
+        statements 1,2,3,4,8,11 with abnormal termination
+case 9: If exception raised at statement 8 and corresponding except block matched then
+        statements 1,2,3,4,5,6,10,11,12 with normal termination
+case 10: If exception raised at statement 8 and corresponding except block not matched then
+         statements 1,2,3,4,5,6 with abnormal termination
+case 11: If exception raised at statement 9 and the corresponding except block matched then
+         statements 1,2,3,4,5,6,8,10,11,12 with normal termination
+case 12: If exception raised at statement 9 and the corresponding except block not matched then
+         statements 1,2,3,4,5,6,8,11 with abnormal termination
+case 13: If exception raised at statement 10 then the statements 1,11 will get executed with
+         abnormal termination
+'''
+
+# else block with try-except-finally
+# else block will get executed when there is no exception
+# finally block will get executed when there is no exception occurred or didn't occur handled or not handled
+
+try:
+    print('try')
+    print(10/1)
+except ZeroDivisionError:  # If there is exception except block will get executed
+    print('except')
+else:
+    print('else')  # If there is no exception then else block will get executed
+finally:
+    print('finally')
+
+print('various combinations of try/except/else/finally blocks')
+
+'''
+various possible combinations of try-except-else-finally blocks :-
+
+    1. try without except or finally block is always invalid
+    2. without try only except block is always invalid
+    3. only else block is always invalid
+    4. only finally block is always invalid
+    5. try-except is always valid
+    6. try-finally is always valid
+    7. try-except-else is always valid
+    8. try-else is always invalid. We can not have else block without except
+    9. try-else-finally is always invalid
+   10. try with multiple except blocks is always valid
+   11. try-except-else-else is always invalid. We can have only one else block
+   12. try-except-finally-finally is always invalid. We can have only one finally block
+   
+    
+'''
+
+'''
+There are two types of exceptions in Python:
+    1. Predefined exceptions or inbuilt exceptions. -- The exceptions raised by python automatically
+    2. User defined exceptions.
+'''
+
+# Defining user defined exceptions
+
+
+class TooYoungException(Exception):  # We are defining TooYoungException class as child class of Exception
+    def __int__(self,arg):  # This is a constructor
+        self.msg = arg
+
+
+class TooOldException(Exception):
+    def __int__(self,arg):
+        self.msg = arg
+
+
+age = int(input('Enter your age:'))
+if age > 60:
+    raise TooOldException('You crossed your age to get married')
+elif age < 18:
+    raise TooYoungException('You are very young to get married')
+else:
+    print('Your age is correct..all the best')
