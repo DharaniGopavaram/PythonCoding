@@ -55,6 +55,9 @@ readlines() -- To read all the lines in the file into a list
 """
 
 import os.path
+import csv
+import random
+
 
 file1 = open('abc.txt','w')  # The file will be created in the current working directory
 print(f'File name: {file1.name}')
@@ -186,11 +189,52 @@ if os.path.exists(filename):  # We can use os module exists method to check whet
         for line in f:
             line_count += 1
             character_count += len(line)
-            word_count += line.count(' ')
+            word_count += line.count(' ') + 1
         print(f'The number of lines present in the file is: {line_count}')
         print(f'The number of words present in the file is: {word_count}')
         print(f'The number of characters present in the file is: {character_count}')
 else:
     print('The specified file does not exist')
+
+# copy and paste an image file using python file handling concept
+with open('/Users/dharani-kumar/Desktop/time_quote.jpg','rb') as f1:
+    with open('/Users/dharani-kumar/Desktop/time_quote_copy.jpg','wb') as f2:
+        image_data = f1.read()  # The binary data is stored in bytes datatype
+        print(f'The type of the variable image_data is {type(image_data)}')
+        f2.write(image_data)
+        print('Image copied successfully')
+
+# working with csv data we have an in-built module called csv module which will help us do it
+# writing the data to the csv file
+
+with open('employee_data.csv','w',newline='') as f:  # newline will prevent adding one extra line between the lines
+    w = csv.writer(f)  # creating a csv writer object to write the data
+    w.writerow(("Employee_number","Employee_Name","Employee_Sal","Employee_Addr"))
+    # writerow method is used to write data to the csv file
+    sample_name_list = ['Ram', 'Robert', 'Rahim', 'Ram']
+    sample_addr_list = ['Hyd', 'Mumbai', 'Chennai', 'Kolkata']
+    sample_sal_list = [10000, 9800, 9600, 9900, 8800]
+    for i in range(1,100):
+        emp_no = random.randint(1,1000000)
+        emp_name = random.choice(sample_name_list)
+        emp_sal = random.choice(sample_sal_list)
+        emp_addr = random.choice(sample_addr_list)
+        w.writerow([emp_no, emp_name, emp_sal, emp_addr])  # writerow function accepts an iterable
+
+print('Total employee data returned to csv file successfully')
+
+# reading the data from the csv file
+
+with open('employee_data.csv','r') as f:
+    r = csv.reader(f)
+    csv_data = list(r)  # The data will be stored in list(list)
+    for line in csv_data:
+        for word in line:
+            print(word,'\t',end='')
+        print()
+
+
+# Zipping and unzipping files
+
 
 
