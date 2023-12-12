@@ -25,3 +25,37 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: 'ten'
 INFO:root:Request processing completed
+DEBUG:root:This is debug message
+INFO:root:This is info message
+CRITICAL:root:This is critical message
+ERROR:root:This is error message
+WARNING:root:This is warning message
+INFO:root:A new request came to use our application
+INFO:root:Request processing completed
+DEBUG:root:This is debug message
+INFO:root:This is info message
+CRITICAL:root:This is critical message
+ERROR:root:This is error message
+WARNING:root:This is warning message
+INFO:root:A new request came to use our application
+INFO:root:Request processing completed
+DEBUG:root:This is debug message
+INFO:root:This is info message
+CRITICAL:root:This is critical message
+ERROR:root:This is error message
+WARNING:root:This is warning message
+INFO:root:A new request came to use our application
+INFO:root:Request processing completed
+DEBUG:root:This is debug message
+INFO:root:This is info message
+CRITICAL:root:This is critical message
+ERROR:root:This is error message
+WARNING:root:This is warning message
+INFO:root:A new request came to use our application
+INFO:root:Request processing completed
+DEBUG:root:This is debug message
+INFO:root:This is info message
+CRITICAL:root:This is critical message
+ERROR:root:This is error message
+WARNING:root:This is warning message
+INFO:root:A new request came to use our application

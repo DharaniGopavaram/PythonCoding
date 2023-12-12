@@ -25,14 +25,16 @@ logging.warning(message)
 logging.error(message)
 logging.critical(message)
 
+The process of identifying and fixing the bug is called debugging.
 The most common way of debugging is using print statement but after fixing the problem we need to make sure
 we remove the statements which were added as part of debugging.
 
-Instead of using print statement for debugging we can use assert statement.
+Instead of using print statement for debugging we can use assert statement as we can turn off and turn on assert
+statements whenever we want.
 There are two types of assert statements in Python.
 
     1. Simple version
-    2. Very simple version(Augmented version)
+    2. Augmented version
 """
 
 import logging
@@ -61,4 +63,19 @@ except ValueError as msg:
     logging.exception(msg)
 logging.info('Request processing completed')
 
+# Simple version of assert statement
+
+x = 10
+assert x == 10  # since the condition failed we will get assertion error
+print('The value of x is:',x)
+
+# Augmented version of assert statement which will display some msg along with AssertionError 
+
+x = 10
+assert x > 10, 'Here x value should be greater than 10 but it is not'
+print('The value of x is:', x)
+
+# We can turn off assert statements by passing -O option while calling our program
+# /Users/dharani-kumar/coding/PythonCodingPractice/venv/bin/python
+#   -O /Users/dharani-kumar/coding/PythonCodingPractice/Program21_Logging.py
 
