@@ -55,8 +55,10 @@ readlines() -- To read all the lines in the file into a list
 """
 
 import os.path
+import os
 import csv
 import random
+from zipfile import *
 
 
 file1 = open('abc.txt','w')  # The file will be created in the current working directory
@@ -236,5 +238,23 @@ with open('employee_data.csv','r') as f:
 
 # Zipping and unzipping files
 
+# zipping multiple files into one single zip file
+
+with ZipFile('file.zip','w',ZIP_DEFLATED) as f:  # here we are creating ZipFile class object
+    f.write('abc.txt')  # writing a file to the zip file
+    f.write('employee_data.csv')
+    f.write('log.txt')
+
+print('files.zip file created successfully')
 
 
+# unzipping the files
+
+with ZipFile('file.zip','r',ZIP_STORED) as f:
+    names = f.namelist()  # this will give us all the filenames present in the zip file
+    for name in names:  # printing the data present in every file to console
+        print('The content of the file',name,'is')
+        with open(name,'r') as f1:
+            for line in f1:
+                print(line,end='')
+            print()
