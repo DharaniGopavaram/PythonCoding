@@ -8,6 +8,7 @@ The below program explains about different types of variables in class.
                 reference variable
             Instance variables can be declared inside an instance method as well using self
             Instance variables can be declared outside the class using reference variable
+
     2. static variable -- If the value of the variable doesn't vary from object to object then we should declare
             that variable as a static variable
             Only one copy of the static variable will be created for all the objects
@@ -21,6 +22,11 @@ The below program explains about different types of variables in class.
             We can modify static variable either by using classname or by cls variable if it is class method
             If we are trying to modify static variable value by using object reference then static variable
                 value won't be modified instead it will create a new instance variable
+            We can delete static variable using del class_name.variable_name or cls.variable_name if we try to
+                delete using object reference or self se get error
+
+    3. Local variables -- Local variables are variables which we declare for temporary purpose inside a method
+            The scope of the local variable will be gone once the method execution is complete
 """
 
 
@@ -147,3 +153,39 @@ print('c1:',c1.a,c1.b)  # 888 999
 print('c2:',c2.a,c2.b)  # 10 20
 print(c1.__dict__)  # {'b': 999, 'a': 888} Here the variable 'a' is instance variable
 print(c2.__dict__)  # {'b': 20}
+
+# Some examples related to instance and static variables
+
+
+class Check1:
+    a = 10
+
+    def __init__(self):
+        self.a = 888
+
+
+c = Check1()
+print(Check1.a)
+print(c.a)
+
+
+class Check2:
+    a = 10
+
+    def __init__(self):
+        self.b = 20
+        print(self)  # self always points to current object
+
+    @classmethod
+    def m1(cls):
+        cls.a = 888
+        cls.b = 999
+        print(cls)  # cls always points to current class
+
+
+c1 = Check2()
+c2 = Check2()
+c1.m1()
+print('c1',c1.a,c1.b)
+print('c2',c2.a,c2.b)
+print('Check2',Check2.a,Check2.b)

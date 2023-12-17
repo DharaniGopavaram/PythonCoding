@@ -57,7 +57,7 @@ class Test:
         self.var1 = n
         self.var2 = m
 
-    def display(self):
+    def display(self):  # This is an instance method
         print('Hi',self.var1)
         print(f'You have {self.var2} score')
 
