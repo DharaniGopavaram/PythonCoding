@@ -114,3 +114,50 @@ class DurgaMath:
 
 DurgaMath.add_num(10,20)
 DurgaMath.product_num(30,40)
+
+# Passing members of one class to another class
+
+
+class Employee:
+
+    def __init__(self,eno,ename,esal):
+        self.eno = eno
+        self.ename = ename
+        self.esal = esal
+
+    def display(self):
+        print(f'Employee number: {self.eno}')
+        print(f'Employee name: {self.ename}')
+        print(f'Employee salary: {self.esal}')
+
+
+class Manager:
+    @staticmethod
+    def modify_employee(emp):  # this method is taking parameter as an employee object and calling its methods
+        emp.esal += 1000  # Incrementing the salary of the employee by 1000
+        emp.display()  # calling the display method of the Employee class
+
+
+e = Employee(100,'Dharani',10000)
+Manager.modify_employee(e)  # passing the employee object to modify_employee method
+
+# Inner classes :- An object can not be created without the existence of another object in these cases we should
+#    go for inner classes.
+# Inner classes help in managing namespaces by keeping related classes together,
+# avoiding potential naming conflicts with classes in other parts of the program
+
+
+class Outer:
+    def m1(self):
+        print('Outer class method')
+
+    class Inner:
+        def m2(self):
+            print('Inner class method')
+
+
+o = Outer()  # creating an object of outer class
+o.m1()  # calling the outer class method
+i = o.Inner()  # To create an object of Inner class we definitely need to create object of outer class
+i.m2()  # calling the inner class method
+Outer().Inner().m2()  # calling the inner class m2 method directly
