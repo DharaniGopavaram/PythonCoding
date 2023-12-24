@@ -161,3 +161,33 @@ o.m1()  # calling the outer class method
 i = o.Inner()  # To create an object of Inner class we definitely need to create object of outer class
 i.m2()  # calling the inner class method
 Outer().Inner().m2()  # calling the inner class m2 method directly
+
+
+class Person:
+    def __init__(self):
+        print('Person class constructor started')
+        self.name = 'Dharani'
+        self.dob = self.DOB()  # creating the DOB class object
+        print('Person class constructor completed')
+
+    def display(self):
+        print(f'Name of the person: {self.name}')
+
+    class DOB:
+        def __init__(self):
+            print('DOB class constructor started')
+            self.dd = 19
+            self.mm = 12
+            self.yy = 1997
+            print('DOB class constructor completed')
+
+        def display(self):
+            print('DOB = {}/{}/{}'.format(self.dd,self.mm,self.yy))
+
+
+p = Person()  # This call will execute both the constructors
+p.display()
+p.dob.display()
+
+
+
