@@ -1,3 +1,5 @@
+import re
+
 word = "abbcc"
 char_dict = {}
 for char in word:
@@ -64,5 +66,14 @@ while True:
     i += 1
 
 print(result)
+
+s = "Test1ng-Leet=code-Q!"
+s_only_char_reverse = re.findall('[a-zA-Z]',s)
+s_only_char_reverse.reverse()
+
+for match in re.finditer('[^a-zA-Z]',s):
+    s_only_char_reverse.insert(int(match.start()),match.group())
+
+print(''.join(s_only_char_reverse))
 
 

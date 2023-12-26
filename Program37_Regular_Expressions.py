@@ -48,6 +48,7 @@ a$ -- whether the string ends with a or not
 """
 
 import re
+import urllib.request
 
 pattern = re.compile('ab')  # To create a pattern we need to search use compile function
 print(f'The type of the variable pattern is: {type(pattern)}')
@@ -115,31 +116,31 @@ for match in matcher:
           f'and ending at {match.end() - 1}')
 
 print()
-matcher = re.finditer('\s', 'a7 b@k9z A')
+matcher = re.finditer(r'\s', 'a7 b@k9z A')
 for match in matcher:
     print(f'The pattern {match.group()} is starting at index {match.start()} '
           f'and ending at {match.end() - 1}')
 
 print()
-matcher = re.finditer('\S', 'a7 b@k9z A')
+matcher = re.finditer(r'\S', 'a7 b@k9z A')
 for match in matcher:
     print(f'The pattern {match.group()} is starting at index {match.start()} '
           f'and ending at {match.end() - 1}')
 
 print()
-matcher = re.finditer('\w', 'a7 b@k9z A')
+matcher = re.finditer(r'\w', 'a7 b@k9z A')
 for match in matcher:
     print(f'The pattern {match.group()} is starting at index {match.start()} '
           f'and ending at {match.end() - 1}')
 
 print()
-matcher = re.finditer('\W', 'a7 b@k9z A')
+matcher = re.finditer(r'\W', 'a7 b@k9z A')
 for match in matcher:
     print(f'The pattern {match.group()} is starting at index {match.start()} '
           f'and ending at {match.end() - 1}')
 
 print()
-matcher = re.finditer('\d', 'a7 b@k9z A')
+matcher = re.finditer(r'\d', 'a7 b@k9z A')
 for match in matcher:
     print(f'The pattern {match.group()} is starting at index {match.start()} '
           f'and ending at {match.end() - 1}')
@@ -227,14 +228,14 @@ s = '[c-e]*f'
 m = re.findall(s,'abcdefhhhf')  # returns a list with all the matches
 print(m)  # ['cdef', 'f']
 
-print(re.findall('\W','a&&#13413*&ba'))  # this pattern will return the special characters
-print(re.sub('\d','@','a4j7f9a8'))  # replace all the digits with @
-print(re.subn('\d','@','a8ur5493184u'))  # ('a@ur@@@@@@@u', 8)
-print(re.split('-','10-20-30-40'))  # split string based on a separator
-print(re.split('\.','www.durgasoftvideos.com'))  # since . will match every character we need to escape it
-print(re.split(' +','dhaaa            kumar'))
-print(re.search('EAsy$','Python is very easy'))  # None
-print(re.search('EAsy$','Python is very easy',re.IGNORECASE).group())  # easy -- here we are ignoring case
+print(re.findall(r'\W','a&&#13413*&ba'))  # this pattern will return the special characters
+print(re.sub(r'\d','@','a4j7f9a8'))  # replace all the digits with @
+print(re.subn(r'\d','@','a8ur5493184u'))  # ('a@ur@@@@@@@u', 8)
+print(re.split(r'-','10-20-30-40'))  # split string based on a separator
+print(re.split(r'\.','www.durgasoftvideos.com'))  # since . will match every character we need to escape it
+print(re.split(r' +','dhaaa            kumar'))
+print(re.search(r'EAsy$','Python is very easy'))  # None
+print(re.search(r'EAsy$','Python is very easy',re.IGNORECASE).group())  # easy -- here we are ignoring case
 
 '''
 Write a program which will check whether the given string has the below characters or not
@@ -247,4 +248,31 @@ Write a program which will check whether the given string has the below characte
 s = 'a6R#'
 print(re.fullmatch('[a-k][0369][a-zA-Z0-9#]*',s).group())
 
-print(re.fullmatch('[6-9]\d{9}','6748913719').group())  # Re to match 10 digit mobile numbers
+print(re.fullmatch(r'[6-9]\d{9}','6748913719').group())  # Re to match 10 digit mobile numbers
+
+# Reading and writing the matched regular expression data from and to a file
+
+with open('dharani.txt','r') as f:
+    with open('phone_number.txt','w') as f1:
+        for line in f:
+            match_list = re.findall(r'\b[6-9]\d{9}\b',line)  # some magic is there with r
+            for match in match_list:
+                f1.write(match + '\n')
+
+# web scrapping using regular expressions
+sites = ['http://example.com/','http://google.com/']
+
+for site in sites:
+    print('Searching...',site)
+    u = urllib.request.urlopen(site)
+    text = u.read()
+    title = re.findall("<title>.*</title>",str(text),re.IGNORECASE)
+    print(title)
+
+# regular expression to match email ids
+
+print(re.fullmatch(r'\w[a-zA-Z0-9.-]+@(gmail|yahoo)[.](com|net)','dharani.gopavaram@gmail.com'))
+print(re.fullmatch(r'\w[a-zA-Z0-9.-]+@(gmail|yahoo)[.](com|net)','dharani.gopavaram@yahoo.net'))
+print(re.fullmatch(r'\w[a-zA-Z0-9.-]+@(gmail|yahoo)[.](com|net)','12345@yahoo.net'))
+print(re.fullmatch(r'\w[a-zA-Z0-9.-]+@(gmail|yahoo)[.](com|net)','?12345@yahoo.net'))  # this doesn't match
+
