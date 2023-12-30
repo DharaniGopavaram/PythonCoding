@@ -76,4 +76,77 @@ for match in re.finditer('[^a-zA-Z]',s):
 
 print(''.join(s_only_char_reverse))
 
+licensePlate = "GrC8950"
+words = ["measure","other","every","base","according","level","meeting","none","marriage","rest"]
+import re
+licensePlateChars = [s.lower() for s in re.findall(r'[a-z]',licensePlate,re.IGNORECASE)]
+licensePlateCharsDict = {}
+result = ''
+for char in licensePlateChars:
+    if char not in licensePlateCharsDict.keys():
+        licensePlateCharsDict[char] = 1
+    else:
+        licensePlateCharsDict[char] += 1
+print(licensePlateChars,licensePlateCharsDict)
+for word in words:
+    for key in licensePlateCharsDict.keys():
+        if word.count(key) >= licensePlateCharsDict[key]:
+            print('came here 1',key,word)
+            continue
+        else:
+            print('came here 2',key,word)
+            break
+    else:
+        print('came here 2')
+        if len(word) < len(result) or result == '':
+            result = word
+print(result)
+
+s = "aaabaaaa"
+result = previous = s[0]
+print(result)
+char_count = 1
+for char in s[1:]:
+    if previous == char and char_count < 2:
+        result += char
+        char_count += 1
+    elif previous != char:
+        result += char
+        char_count = 1
+        previous = char
+        print(result,char_count,'2')
+print(result)
+
+s = "code"
+i, j = 0, 1
+result = 0
+while j <= len(s):
+    while i < len(s):
+        sub_str = s[i:i + j:1]
+        if len(sub_str) == j:
+            result += len(set(sub_str))
+        i += 1
+    j += 1
+    i = 0
+print(result)
+
+mat = [[0,0],[1,1],[0,0]]
+for index,elem in enumerate(mat):
+    one_count = elem.count(1)
+    print(one_count)
+    print(index,elem)
+
+nums = [0,1,0,3,12]
+for i in range(len(nums)):
+    if nums[i] == 0:
+        nums.remove(0)
+        nums.append(0)
+print(nums)
+
+
+
+
+
+
+
 
